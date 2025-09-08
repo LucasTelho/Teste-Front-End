@@ -137,7 +137,7 @@ export default function PrimaryAppSearchBar() {
           </Typography>
 
           {/* Barra de pesquisa */}
-          <Box sx={{ position: 'relative', width: { xs: '100%', sm: 300 } }}>
+          <Box sx={{ position: 'relative', width: { xs: '100%', sm: 300 }, background:"#3a3a3a", borderRadius:"4px" }}>
             <Search>
               <SearchIconWrapper>
                 <SearchIcon />
@@ -176,7 +176,7 @@ export default function PrimaryAppSearchBar() {
           </Box>
 
           {/* Ícone do carrinho */}
-          <IconButton color="inherit" sx={{ ml: 2 }}>
+          <IconButton color="inherit" sx={{ ml: 2 }}  aria-label="Carrinho de compras">
             <ShoppingCartIcon />
           </IconButton>
         </Toolbar>

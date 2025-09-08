@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 export default function ProductFilter({ onFilter, onClose, isMobile = false }) {
   const [selectedCategories, setSelectedCategories] = useState([]);
@@ -23,7 +23,7 @@ export default function ProductFilter({ onFilter, onClose, isMobile = false }) {
       categoria: selectedCategories,
       preco: selectedPrice,
     });
-    if (onClose) onClose(); // fecha Drawer no mobile
+    if (onClose) onClose();
   };
 
   const handleClear = () => {
@@ -128,7 +128,7 @@ export default function ProductFilter({ onFilter, onClose, isMobile = false }) {
           <button
             type="button"
             onClick={handleClear}
-            className="px-4 py-2 bg-gray-400 text-black rounded"
+            className="px-4 py-2 bg-gray-800 text-white rounded"
           >
             Limpar
           </button>

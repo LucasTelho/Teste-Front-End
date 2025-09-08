@@ -1,6 +1,5 @@
-// ofertas.jsx
 import { useState } from "react";
-import produtosImg from "../../assets/images/oferta-semana.jpg";
+import produtosImg from "../../assets/images/oferta-semana.webp";
 import ResponsiveGrid from "../../components/rgrid";
 import ProductFilter from "../../components/productFilter";
 import Drawer from "@mui/material/Drawer";
@@ -22,11 +21,10 @@ function Ofertas() {
         width={1600}
         height={100}
         className="w-400 h-50 object-cover"
+        loading="lazy"
       />
 
-      {/* Gap entre título e main */}
       <div className="h-10" />
-      {/* Título centralizado */}
       <Typography
         variant="h4"
         component="h1"
@@ -37,28 +35,34 @@ function Ofertas() {
         Ofertas da Semana
       </Typography>
       <main className="p-10 max-w-400 justify-center m-auto flex gap-6 flex-col sm:flex-row w-full">
-        {/* Desktop: aside fixo */}
+
         {!isSmallScreen && <ProductFilter onFilter={setFilters} />}
 
         <Box sx={{ flex: 1 }}>
-          {/* Mobile: botão de filtro acima do grid */}
           {isSmallScreen && (
-            <Box sx={{ mb: 2, textAlign: "right" }}>
+            <Box sx={{ mb: 2, textAlign: "center" }}>
               <Button
                 variant="outlined"
                 onClick={() => setDrawerOpen(true)}
+                sx={{
+                  backgroundColor: "#003366", 
+                  color: "#ffffff",           
+                  borderColor: "#003366",     
+                  "&:hover": {
+                    backgroundColor: "#002244", 
+                    borderColor: "#002244",
+                  },
+                }}
               >
                 Filtros
               </Button>
             </Box>
           )}
 
-          {/* Grid de produtos */}
           <ResponsiveGrid filters={filters} />
         </Box>
       </main>
 
-      {/* Drawer lateral (mobile) */}
       {isSmallScreen && (
         <Drawer
           anchor="right"

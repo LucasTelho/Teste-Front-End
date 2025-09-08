@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
@@ -9,7 +9,7 @@ import { getProducts } from "../services/api";
 
 export default function ResponsiveGrid({ filters }) {
   const [products, setProducts] = useState([]);
-  const [visible, setVisible] = useState(8); // controla quantos produtos aparecem
+  const [visible, setVisible] = useState(8);
 
   useEffect(() => {
     async function fetchData() {
@@ -23,23 +23,25 @@ export default function ResponsiveGrid({ filters }) {
     fetchData();
   }, []);
 
-  const filteredProducts = products.filter((p) => {
-    let categoryMatch = true;
-    let priceMatch = true;
+  const filteredProducts = useMemo(() => {
+    return products.filter((p) => {
+      let categoryMatch = true;
+      let priceMatch = true;
 
-    if (filters.categoria?.length) {
-      categoryMatch = filters.categoria.includes(p.category);
-    }
+      if (filters.categoria?.length) {
+        categoryMatch = filters.categoria.includes(p.category);
+      }
 
-    if (filters.preco) {
-      const price = p.price;
-      if (filters.preco === "0-50") priceMatch = price <= 50;
-      if (filters.preco === "50-150") priceMatch = price > 50 && price <= 150;
-      if (filters.preco === "150+") priceMatch = price > 150;
-    }
+      if (filters.preco) {
+        const price = p.price;
+        if (filters.preco === "0-50") priceMatch = price <= 50;
+        if (filters.preco === "50-150") priceMatch = price > 50 && price <= 150;
+        if (filters.preco === "150+") priceMatch = price > 150;
+      }
 
-    return categoryMatch && priceMatch;
-  });
+      return categoryMatch && priceMatch;
+    });
+  }, [products, filters]);
 
   const handleLoadMore = () => {
     setVisible((prev) => prev + 6);
@@ -71,7 +73,7 @@ export default function ResponsiveGrid({ filters }) {
               component="div"
               sx={{
                 width: "100%",
-                height: 350,
+                height: 400,
                 textAlign: "center",
                 p: 2,
                 display: "flex",
@@ -89,6 +91,7 @@ export default function ResponsiveGrid({ filters }) {
                 component="img"
                 image={product.image}
                 alt={product.title}
+                loading="lazy"
                 sx={{
                   width: 200,
                   height: 162,
@@ -129,10 +132,22 @@ export default function ResponsiveGrid({ filters }) {
         ))}
       </Box>
 
-      {/* Botão carregar mais */}
       {visible < filteredProducts.length && (
         <Box sx={{ textAlign: "center", mt: 4 }}>
-          <Button variant="outlined" onClick={handleLoadMore}>
+          <Button
+            variant="outlined"
+            onClick={handleLoadMore}
+            sx={{
+              mt: 2,
+              backgroundColor: "#003366", 
+              color: "#ffffff",           
+              borderColor: "#003366",     
+              "&:hover": {
+                backgroundColor: "#002244", 
+                borderColor: "#002244",
+              },
+            }}
+          >
             Carregar mais
           </Button>
         </Box>

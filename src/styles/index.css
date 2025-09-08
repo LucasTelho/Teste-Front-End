@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+
+.main-section {
+    background: #dfdfff;
+}
+
+#categorias, #precos {
+
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-top: 1.25rem;
+}
+
+#categorias label, #precos label {
+    cursor: pointer;
+}
